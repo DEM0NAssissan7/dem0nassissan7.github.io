@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<div>
+    <div>
+        <h3>Calibrations</h3>
+    </div>
+    <div style="margin-top: 10px">
+        <div>
+            Units per carbs:
+            <input type="text" id="carbCalculationId" value="1" /> units/8g
+        </div>
+    </div>
+    <div style="margin-top: 10px">
+        <div>
+            Units per protein:
+            <input type="text" id="proteinCalculationId" value="0.85" /> units/28g
+        </div>
+    </div>
+</div>
+
+<div>
+    <button onclick="showManual()" id="manualToggleId">
+        Manual Override
+    </button>
+</div>
+
+
+<div id="mealPlannerId">
+    <h3>
+        Meal Assembly
+    </h3>
+    <select id="addFoodSelectId">
+
+    </select>
+    <button type="button" onclick="addFoodItem()">Add Item</button>
+    <div id="mealId">
+    </div>
+</div>
+
+<div id="manualId" hidden>
+    <div>
+        <h3>Manually Input Nutrition Data</h3>
+    </div>
+    Carbs: <input type="text" id="carbsId" />
+    <br />
+    <br />
+    Protein: <input type="text" id="proteinId" />
+    <div style="margin-top: 10px">
+        <input type="button" value="Calculate" onclick="calculate()" />
+    </div>
+</div>
+
+
+<div>
+    <h3>
+        Results
+    </h3>
+</div>
+<div style="margin-top: 10px">
+    <strong id="resultsId">
+        0
+    </strong>
+    <sup id="quarterId">0</sup>&frasl;<sub>4</sub>
+    units of regular insulin
+</div>
+<br>
+(<i id="actualId">0</i> units)
+<script src="main.js"></script>
+
+</html>
