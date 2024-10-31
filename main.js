@@ -35,57 +35,35 @@ function getQuarterUnits(insulin) {
     return retval
 }
 
-function calculate() {
+function calculate(carb, protein) {
     let proteinBase = parseFloat($(`#proteinCalculationId`).val())
     let carbBase = parseFloat($(`#carbCalculationId`).val())
 
-    let protein = parseFloat($("#proteinId").val())
-    let carb = parseFloat($("#carbsId").val())
     if (protein === NaN || carb === NaN) return
     let insulin = round((protein * proteinBase) / 28 + (carbBase * carb) / 8, 2)
     if (!insulin) return
 
-    $(`#actualId`).html(insulin)
-    $(`#resultsId`).html(getInsulin(insulin))
-    $(`#quarterId`).html(getQuarterUnits(insulin))
-}
-
-let mode = "auto";
-function showManual() {
-    $(`#manualId`).show();
-    $(`#mealPlannerId`).hide();
-    
-    let toggle = $(`#manualToggleId`);
-    toggle[0].onclick = hideManual;
-    toggle.html("Show Meal Planner")
-
-    mode = "manual";
-}
-function hideManual() {
-    $(`#manualId`).hide();
-    $(`#mealPlannerId`).show();
-
-    let toggle = $(`#manualToggleId`);
-    toggle[0].onclick = showManual;
-    toggle.html("Manual Override")
-
-    mode = "auto"
+    $(`#actualId`).html(insulin);
+    $(`#resultsId`).html(getInsulin(insulin));
+    $(`#quarterId`).html(getQuarterUnits(insulin));
+    $(`#infoId`).html(` - ${round(carb, 1)}g carbs | ${round(protein, 1)}g protein`);
 }
 
 // Nice event listener
-document.onkeypress = function (e) {
+document.addEventListener("keyup", (e) => {
     e = e || window.event
-    if(mode === "manual") {
-        setTimeout(calculate, 10);
-    }
-}
+    setTimeout(calculate_meal, 10);
+});
 
 /* Food Database */
 // add_food(name, carb content per 100g, protein content per 100g)
 
 function add_food(name, carbs_per_100g, protein_per_100g) {
-    let option = document.createElement("option")
-    let val = name + "|" + carbs_per_100g / 100 + "|" + protein_per_100g / 100
+    let val = name + "|" + carbs_per_100g / 100 + "|" + protein_per_100g / 100 + "|grams|g"
+    $(`#addFoodSelectId`).append(new Option(name, val))
+}
+function add_food_amount(name, carbs_per_1, protein_per_1) {
+    let val = name + "|" + carbs_per_1 + "|" + protein_per_1 + "|servings|s"
     $(`#addFoodSelectId`).append(new Option(name, val))
 }
 
@@ -115,21 +93,26 @@ function addFoodItem() {
     let name = split_val[0]
     let carbs = parseFloat(split_val[1])
     let protein = parseFloat(split_val[2])
-    let food = new Food(carbs, protein)
+    let tooltip = split_val[3];
+    let measurement = split_val[4];
+    let food = new Food(carbs, protein);
 
     let element = document.createElement("div")
 
-    element.append(name + ": ")
+    element.append(`${name} (${tooltip}): `);
     let weight = document.createElement("input")
-    food.element = weight
+    food.element = weight;
     weight.type = "number"
-    weight.oninput = () =>
+    let handler = () => {
         setTimeout(() => {
             food.update_from_element()
             info.innerHTML = `(${round(food.carbs, 2)}g carbs, ${round(food.protein, 2)}g protein)`
-        }, 4)
+        }, 4);
+    }
+    weight.oninput = handler;
+    document.addEventListener("keyup", handler);
     element.appendChild(weight)
-    element.append("g   ")
+    element.append(" " + measurement + "   ")
 
     let info = document.createElement("text")
     element.appendChild(info)
@@ -139,5 +122,15 @@ function addFoodItem() {
     $(`option[value='${val}']`).remove()
 }
 
-/* Food Database Entries */
-add_food("Avacado", 8.5, 0)
+// Calculation
+function calculate_meal() {
+    let carbs = parseFloat($("#carbsId").val());
+    let protein = parseFloat($("#proteinId").val());
+
+    for(let food of meal) {
+        food.update_from_element()
+        carbs += food.carbs;
+        protein += food.protein;
+    }
+    calculate(carbs, protein);
+}

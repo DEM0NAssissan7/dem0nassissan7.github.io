@@ -22,12 +22,15 @@
     </div>
 </div>
 
-<div>
-    <button onclick="showManual()" id="manualToggleId">
-        Manual Override
-    </button>
+<div id="manualId">
+    <div>
+        <h3>Offset</h3>
+    </div>
+    Carbs: <input type="number" id="carbsId" value='0'/>
+    <br />
+    <br />
+    Protein: <input type="number" id="proteinId" value='0'/>
 </div>
-
 
 <div id="mealPlannerId">
     <h3>
@@ -41,19 +44,9 @@
     </div>
 </div>
 
-<div id="manualId" hidden>
-    <div>
-        <h3>Manually Input Nutrition Data</h3>
-    </div>
-    Carbs: <input type="text" id="carbsId" />
-    <br />
-    <br />
-    Protein: <input type="text" id="proteinId" />
-    <div style="margin-top: 10px">
-        <input type="button" value="Calculate" onclick="calculate()" />
-    </div>
+<div style="margin-top: 10px">
+    <input type="button" value="Calculate" onclick="calculate()" />
 </div>
-
 
 <div>
     <h3>
@@ -69,6 +62,8 @@
 </div>
 <br>
 (<i id="actualId">0</i> units)
+<i id="infoId"></i>
 <script src="main.js"></script>
+<script src="foods.js"></script>
 
 </html>
