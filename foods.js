@@ -10,4 +10,4 @@ add_food("Chicken Thighs", 0, 24);
 add_food_amount("Eggs -scrambled-", 1, 6);
 add_food_amount("Hamburger Patties", 0.5, 9);
 add_food("Romaine Lettuce", 3.3, 1.2);
-add_food_amount("Sausage Patty", 0.5, 9);
+add_food_amount("Sausage Patty", 1, 9);
