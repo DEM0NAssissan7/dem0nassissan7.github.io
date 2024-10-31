@@ -59,11 +59,11 @@ document.addEventListener("keyup", (e) => {
 // add_food(name, carb content per 100g, protein content per 100g)
 
 function add_food(name, carbs_per_100g, protein_per_100g) {
-    let val = name + "|" + carbs_per_100g / 100 + "|" + protein_per_100g / 100 + "|grams|g"
+    let val = `${name}|${carbs_per_100g / 100}|${protein_per_100g / 100}|grams|g`
     $(`#addFoodSelectId`).append(new Option(name, val))
 }
 function add_food_amount(name, carbs_per_1, protein_per_1) {
-    let val = name + "|" + carbs_per_1 + "|" + protein_per_1 + "|servings|s"
+    let val = `${name}|${carbs_per_1}|${protein_per_1}|servings|s`
     $(`#addFoodSelectId`).append(new Option(name, val))
 }
 
@@ -99,7 +99,7 @@ function addFoodItem() {
 
     let element = document.createElement("div")
 
-    element.append(`${name} (${tooltip}): `);
+    element.append(`${name} [${tooltip}]: `);
     let weight = document.createElement("input")
     food.element = weight;
     weight.type = "number"
