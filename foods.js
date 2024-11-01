@@ -13,3 +13,5 @@ add_food("Pickles (by weight)", 2.3, 0);
 add_food("Red Onion (raw)", 5.63, 0);
 add_food("Romaine Lettuce", 3.3, 1.2);
 add_food_amount("Sausage Patty", 1, 9);
+add_food("Steak (ribeye)", 0, 24);
+add_food_amount("White Mushroom", 0.6, 0.6);
