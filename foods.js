@@ -5,6 +5,9 @@ Syntax: add_food("Name", g carbs per 100g, g protein per 100g)
 add_food_amount("Avacado", 12, 0);
 add_food("Atlantic Salmon", 0, 20);
 add_food_amount("Beef Bacon -strip-", 0, 3);
+add_food("Beef (short ribs)", 0, 22);
+add_food("Bell Peppers (green)", 4.6, 0);
+add_food("Celery", 3, 0);
 add_food("Chicken Breast", 0, 31);
 add_food("Chicken Thighs", 0, 24);
 add_food_amount("Eggs -scrambled-", 1, 6);
