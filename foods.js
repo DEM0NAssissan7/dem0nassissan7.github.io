@@ -10,6 +10,7 @@ add_food("Bell Peppers (green)", 4.6, 0);
 add_food("Celery", 3, 0);
 add_food("Chicken Breast", 0, 31);
 add_food("Chicken Thighs", 0, 24);
+add_food("Cucumber", 3.6, 0.7);
 add_food_amount("Eggs -scrambled-", 1, 6);
 add_food_amount("Hamburger Patties", 0.5, 9);
 add_food("Pickles (by weight)", 2.3, 0);
