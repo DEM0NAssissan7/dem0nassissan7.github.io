@@ -19,4 +19,5 @@ add_food("Romaine Lettuce", 3.3, 1.2);
 add_food_amount("Sausage Patty", 1, 9);
 add_food("Steak (ribeye)", 0, 24);
 add_food("Steak (skirt)", 0, 26);
+add_food("Steak (tri tip)", 0, 20.64);
 add_food_amount("Mushroom (white; bella)", 0.6, 0.6);
