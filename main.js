@@ -36,17 +36,23 @@ function getQuarterUnits(insulin) {
 }
 
 function calculate(carb, protein) {
-    let proteinBase = parseFloat($(`#proteinCalculationId`).val())
-    let carbBase = parseFloat($(`#carbCalculationId`).val())
+    let proteinBase = $(`#proteinCalculationId`).val();
+    let carbBase = $(`#carbCalculationId`).val();
+    let percentOffset= $(`#percentOffsetId`).val();
 
     if (protein === NaN || carb === NaN) return
-    let insulin = round((protein * proteinBase) / 28 + (carbBase * carb) / 8, 2)
+    let insulin_actual = (protein * proteinBase) / 28 + (carbBase * carb) / 8
+    insulin = round(insulin_actual * ((100 - percentOffset) / 100), 2)
     if (!insulin) return
 
     $(`#actualId`).html(insulin);
     $(`#resultsId`).html(getInsulin(insulin));
     $(`#quarterId`).html(getQuarterUnits(insulin));
-    $(`#infoId`).html(` - ${round(carb, 1)}g carbs | ${round(protein, 1)}g protein`);
+    let info = (` - ${round(carb, 1)}g carbs | ${round(protein, 1)}g protein`);
+    if(round(percentOffset) !== 0) {
+        info += ` - (${round(insulin_actual, 2)} units actual)`
+    }
+    $(`#infoId`).html(info);
 }
 
 // Nice event listener
