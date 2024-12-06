@@ -44,19 +44,19 @@ function getQuarterUnits(insulin) {
 function calculate(carb, protein) {
     let proteinBase = $(`#proteinCalculationId`).val();
     let carbBase = $(`#carbCalculationId`).val();
-    let percentOffset= $(`#percentOffsetId`).val();
     let current_sugar = $(`#currentSugarId`).val();
     let target_sugar = $(`#targetSugarId`).val();
+    let offset = $(`#offsetId`).val();
     const sugar_per_unit = 30;
 
     // if (protein === NaN || carb === NaN) return;
-    let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carb) / 8) + (offset/4)
-    insulin = round(insulin_actual * ((100 - percentOffset) / 100), 2)
+    let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carb) / 8)
+    insulin = round(insulin_actual + (offset/4), 2)
     if (!insulin || insulin < 0) insulin = 0;
     
     $(`#actualId`).html(insulin);
     let info = (` - ${round(carb, 1)}\ng carbs | ${round(protein, 1)}g protein`);
-    if(round(percentOffset) !== 0) {
+    if(offset && round(offset/4, 4) !== 0) {
         info += ` - (${round(insulin_actual, 2)} units actual)\n`
     }
     let correction = round(get_correction_offset(target_sugar, current_sugar, sugar_per_unit), 2);
