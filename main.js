@@ -50,19 +50,17 @@ function calculate(carb, protein) {
     const sugar_per_unit = 30;
 
     // if (protein === NaN || carb === NaN) return;
-    let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carb) / 8) * (offset/4)
+    let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carb) / 8) + (offset/4)
     insulin = round(insulin_actual * ((100 - percentOffset) / 100), 2)
-    if (!insulin) insulin = 0;
-
+    if (!insulin || insulin < 0) insulin = 0;
+    
     $(`#actualId`).html(insulin);
-    $(`#resultsId`).html(getInsulin(insulin));
-    $(`#quarterId`).html(getQuarterUnits(insulin));
     let info = (` - ${round(carb, 1)}\ng carbs | ${round(protein, 1)}g protein`);
     if(round(percentOffset) !== 0) {
         info += ` - (${round(insulin_actual, 2)} units actual)\n`
     }
     let correction = round(get_correction_offset(target_sugar, current_sugar, sugar_per_unit), 2);
-    let correction_info = `${insulin + correction} units (w/ correction) [${correction} units correction]`;
+    let correction_info = `${round(insulin + correction, 2)}u (${correction}u correction)`;
     if(correction !== 0) {
         $(`#correctedId`).html(correction_info);
     } else {
