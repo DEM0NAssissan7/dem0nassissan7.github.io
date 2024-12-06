@@ -5,7 +5,6 @@
     <title>Insulin Calculator</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" sizes="493x504" href="favicon.png">
 </head>
 <div>
     <div>
@@ -21,6 +20,12 @@
         <div>
             Units per protein:
             <input type="number" id="proteinCalculationId" value="0.85" /> units/28g
+        </div>
+    </div>
+    <div style="margin-top: 10px">
+        <div>
+            Target Blood Sugar:
+            <input type="number" id="targetSugarId" value="83" /> mg/dL
         </div>
     </div>
 </div>
@@ -51,6 +56,9 @@
 </div>
 
 <div style="margin-top: 10px">
+    <br/>
+    Current Blood Sugar: <input type="number" id="currentSugarId" value='83'/> mg/dL
+    <br/>
     <input type="button" value="Calculate" onclick="calculate()" />
 </div>
 
@@ -69,6 +77,9 @@
 <br>
 (<i id="actualId">0</i> units)
 <i id="infoId"></i>
+<br/>
+<br/>
+<b id="correctedId"></b>
 <script src="main.js"></script>
 <script src="foods.js"></script>
 
