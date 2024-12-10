@@ -23,5 +23,6 @@ add_food_amount("Sausage Patty", 0.5, 9);
 add_food("Steak (ribeye)", 0, 24);
 add_food("Steak (skirt)", 0, 26);
 add_food("Steak (tri tip)", 0, 20.64);
+add_food("Steak (t-bone)", 0, 19);
 add_food_amount("Mushroom (white; bella) [per shroom]", 0.6, 0.6);
 add_food("Mushroom (white; bella)", 3.1, 3.3);
