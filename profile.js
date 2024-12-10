@@ -10,7 +10,7 @@ const profile = {
         insulin: 1.75
     },
     n: {
-        carb: 0,
+        carbs: 0,
         protein: 1.14,
         insulin: 0.43
     }

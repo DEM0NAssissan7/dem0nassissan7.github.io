@@ -5,13 +5,13 @@
 
 const min_sugar = 79;
 
-function G(x, peak) {
-    let r = (3 / (4 * (peak ** 3))) * ((peak ** 2) - ((x - peak) ** 2));
+function G(x, p) {
+    let r = (3 / (4 * (p ** 3))) * ((p ** 2) - ((x - p) ** 2));
     if (r > 0) return r;
     return 0;
 }
 function H(x, p) {
-    return (
+    let r = (
         - (
             (
                 Math.exp((x - (8 * p / 7)) / (-p))
@@ -20,6 +20,8 @@ function H(x, p) {
             ) / (p * Math.exp(2 / 3))
         )
     );
+    if (r > 0) return r;
+    return 0;
 }
 
 
@@ -103,7 +105,7 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 1000) {
         f0 = f1;
     }
 
-    return { max: maxVal, min: minVal };
+    return { integral: currentIntegral, max: maxVal, min: minVal };
 }
 function get_sugar_range(n_insulin, insulin, protein, carbs, current_sugar) {
     let min = Infinity;
