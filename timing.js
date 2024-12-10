@@ -41,29 +41,27 @@ function f(t, n_insulin, insulin, carbs, protein) {
 
 const precision = 60;
 const time_frame = 7;
-const insulin_timing_range = [-0.6, 0.8];
+const insulin_timing_range = [-1, 1];
 function get_n_insulin(insulin, protein, carbs, current_sugar) {
     // Try n-insulin ranges from -0.6 to 0.8, testing every 2 minute increment
     let time = null;
     let max = Infinity;
-    let min = 0;
+    let delta = Infinity;
     for (let i = insulin_timing_range[0]; i < insulin_timing_range[1]; i += (1 / 60)) {
         // let range = get_sugar_range(i, insulin, protein, carbs, current_sugar);
         let range = integral_range(a => f(a, i, insulin, carbs, protein), current_sugar, 0, time_frame, min_sugar);
         if(!range) continue;
+        let d = range.max - range.min;
         if (range.max < max) {
+            delta = d;
             max = range.max;
-            min = range.min;
             time = i;
-        }
-        if (range.max === max) {
-            if (range.min > min) {
-                min = range.min;
-                time = i;
-            }
-        }
+        } else if(range.max === max && d < delta) {
+            delta = d;
+            max = range.max;
+            time = i;
+        }   
     }
-    console.log(min);
 
     return time;
 }
