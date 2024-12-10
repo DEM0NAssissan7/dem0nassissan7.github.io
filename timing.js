@@ -24,7 +24,7 @@ function H(x, p) {
 
 
 function f_insulin(t, insulin, n_insulin) {
-    return insulin * -profile.e.insulin * H(t - 0.43 - n_insulin, profile.p.insulin);
+    return insulin * -profile.e.insulin * H(t - profile.n.insulin - n_insulin, profile.p.insulin);
 }
 function f_carbs(t, carbs) {
     return carbs * profile.e.carbs * G(t - profile.n.carbs, profile.p.carbs);

@@ -54,7 +54,12 @@ function calculate(carbs, protein) {
     console.log(insulin_delay);
 
     if(insulin_delay < 0) {
-        $(`#waitId`).html(`Take injection ${insulin_delay} minutes before eating`);
+        $(`#waitId`).html(`Take injection ${-insulin_delay} minutes before eating`);
+    }
+    if(insulin_delay === 0) {
+        $(`#waitId`).html(`Take injection and eat immediately`);
+    } else if(!insulin_delay) {
+        $(`#waitId`).html("");
     }
     if(insulin_delay > 0) {
         $(`#waitId`).html(`Take injection ${insulin_delay} minutes after eating`);
