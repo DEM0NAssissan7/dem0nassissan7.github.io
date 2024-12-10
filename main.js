@@ -28,39 +28,38 @@ function get_correction_offset(target_sugar, current_sugar, sugar_per_unit) {
     return (current_sugar - target_sugar) / sugar_per_unit
 }
 
-function getInsulin(insulin) {
-    let quarter = quarterUnits(insulin)
-    let retval = floor(insulin)
-    if (quarter === 4) retval++
-    return retval
-}
-
-function getQuarterUnits(insulin) {
-    let retval = quarterUnits(insulin)
-    if (retval === 4) return 0
-    return retval
-}
-
-function calculate(carb, protein) {
-    let proteinBase = $(`#proteinCalculationId`).val();
-    let carbBase = $(`#carbCalculationId`).val();
+function calculate(carbs, protein) {
     let current_sugar = $(`#currentSugarId`).val();
     let target_sugar = $(`#targetSugarId`).val();
     let offset = $(`#offsetId`).val();
-    const sugar_per_unit = 30;
 
     // if (protein === NaN || carb === NaN) return;
-    let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carb) / 8)
+    // let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carbs) / 8)
+    
+    // New calculation:
+    insulin_actual = ((protein * profile.e.protein) + (carbs * profile.e.carbs))/(profile.e.insulin);
+
     insulin = round(insulin_actual + (offset/4), 2)
     if (!insulin || insulin < 0) insulin = 0;
     
     $(`#actualId`).html(insulin);
-    let info = (` - ${round(carb, 1)}\ng carbs | ${round(protein, 1)}g protein`);
+    let info = (` - ${round(carbs, 1)}\ng carbs | ${round(protein, 1)}g protein`);
     if(offset && round(offset/4, 4) !== 0) {
         info += ` - (${round(insulin_actual, 2)} units actual)\n`
     }
-    let correction = round(get_correction_offset(target_sugar, current_sugar, sugar_per_unit), 2);
+    let correction = round((current_sugar - target_sugar)/profile.e.insulin, 2);
     let correction_info = `${round(insulin + correction, 2)}u (${correction}u correction)`;
+    
+    let insulin_delay = round(get_n_insulin(round(insulin + correction, 1), protein, carbs, parseInt(current_sugar)) * 60);
+    console.log(insulin_delay);
+
+    if(insulin_delay < 0) {
+        $(`#waitId`).html(`Take injection ${insulin_delay} minutes before eating`);
+    }
+    if(insulin_delay > 0) {
+        $(`#waitId`).html(`Take injection ${insulin_delay} minutes after eating`);
+    }
+    
     if(correction !== 0) {
         $(`#correctedId`).html(correction_info);
     } else {
