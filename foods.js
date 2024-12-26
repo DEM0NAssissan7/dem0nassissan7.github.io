@@ -15,6 +15,8 @@ add_food("Chicken Thigh (bone-in)", 0, 18);
 add_food("Chicken Quarter (bone-in)", 0, 12.5);
 add_food("Cucumber", 3.6, 0.7);
 add_food_amount("Eggs -scrambled-", 0.6, 6);
+add_food("Ground Beef", 0, 27.4);
+add_food("Ground Lamb", 0, 24.7);
 add_food_amount("Hamburger Patties", 0.5, 9);
 add_food("Pickles (by weight)", 2.3, 0);
 add_food("Red Onion (raw)", 5.63, 0);
