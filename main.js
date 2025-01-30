@@ -30,8 +30,8 @@ function get_correction_offset(target_sugar, current_sugar, sugar_per_unit) {
 
 function calculate(carbs, protein) {
     let current_sugar = $(`#currentSugarId`).val();
-    let target_sugar = $(`#targetSugarId`).val();
-    let offset = $(`#offsetId`).val();
+    let target_sugar = $(`#targetSugarId`).val() || 83;
+    let offset = 0;
 
     // if (protein === NaN || carb === NaN) return;
     // let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carbs) / 8)
@@ -77,6 +77,7 @@ function calculate(carbs, protein) {
 document.addEventListener("keyup", (e) => {
     e = e || window.event
     setTimeout(calculate_meal, 10);
+    setTimeout(update_storage, 100)
 });
 
 /* Food Database */
@@ -119,7 +120,14 @@ function addFoodItem() {
     let protein = parseFloat(split_val[2])
     let tooltip = split_val[3];
     let measurement = split_val[4];
+    add_food_element(name, carbs, protein, tooltip, measurement);
+    $(`option[value='${val}']`).remove()
+}
+function add_food_element(name, carbs, protein, tooltip, measurement) {
     let food = new Food(carbs, protein);
+    food.display_name = name;
+    food.tooltip = tooltip;
+    food.measurement = measurement;
 
     let element = document.createElement("div")
 
@@ -142,8 +150,8 @@ function addFoodItem() {
     element.appendChild(info)
     $(`#mealId`).append(element)
 
-    meal.push(food)
-    $(`option[value='${val}']`).remove()
+    meal.push(food);
+    return food;
 }
 
 // Calculation

@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    input {
+        width: 25px;
+    }
+    button {
+        width: fit-content;
+    }
+</style>
+
 <head>
     <title>Insulin Calculator</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+<body style="width:100%;overflow: auto">
 <div>
     <div>
         <h3>Calibrations</h3>
     </div>
-    <div style="margin-top: 10px">
+    <!-- <div style="margin-top: 10px;">
         <div>
             Target Blood Sugar:
             <input type="number" id="targetSugarId" value="83" /> mg/dL
+        </div>
+    </div> -->
+    <div>
+        <h4>E Values</h4>
+        
+        E Insulin:
+        <input type="number" id="eInsulinId" value="50"/> mg/dLu
+        <br>
+        E Protein:
+        <input type="number" id="eProteinId" value="1.079" /> mg/dLg
+        <br>
+        E Carbs:
+        <input type="number" id="eCarbsId" value="4.5" /> mg/dLg
+    </div>
+    <div>
+        <h4>Legacy</h4>
+    </div>
+    <div style="margin-top: 10px">
+        <div>
+            Units per 12g (2oz) protein:
+            <input type="number" id="legacyProteinRateId" value="1" /> u/12g
+            <br>
+            <br>
+            Units per 8g carbs:
+            <input type="number" id="legacyCarbsRateId" value="1" /> u/8g
         </div>
     </div>
 </div>
@@ -26,16 +62,13 @@
     <br />
     <br />
     Protein: <input type="number" id="proteinId" value='0'/>
-    <br />
-    <br />
-    Quarter Unit Offset: <input type="number" id="offsetId" value='0'/> quarter units
 </div>
 
 <div id="mealPlannerId">
     <h3>
         Meal Assembly
     </h3>
-    <select id="addFoodSelectId">
+    <select id="addFoodSelectId" style="width: fit-content">
 
     </select>
     <button type="button" onclick="addFoodItem()">Add Item</button>
@@ -47,7 +80,9 @@
     <br/>
     Current Blood Sugar: <input type="number" id="currentSugarId" value='83'/> mg/dL
     <br/>
-    <input type="button" value="Calculate" onclick="calculate()" />
+    <button type="button" onclick="calculate_meal()">Calculate</button>
+    <button type="button" onclick="clear_meal()">Clear Meal</button>
+    <button type="button" onclick="clear_storage()">Clear Data</button>
 </div>
 
 <div>
@@ -63,9 +98,12 @@
 <b id="correctedId"></b>
 <br/>
 <i id="waitId"></i>
+</body>
+
 <script src="profile.js"></script>
 <script src="main.js"></script>
 <script src="foods.js"></script>
 <script src="timing.js"></script>
+<script src="storage.js"></script>
 
 </html>
