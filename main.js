@@ -77,7 +77,7 @@ function calculate(carbs, protein) {
 document.addEventListener("keyup", (e) => {
     e = e || window.event
     setTimeout(calculate_meal, 10);
-    setTimeout(update_storage, 100)
+    setTimeout(update_storage, 10)
 });
 
 /* Food Database */
