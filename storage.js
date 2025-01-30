@@ -88,13 +88,14 @@ function update_input_boxes() {
 
 // User Tooling
 function clear_storage() {
-    confirm("Are you sure you want to reset?");
-    $(`#eInsulinId`).val(default_profile.e.insulin)
-    $(`#eProteinId`).val(default_profile.e.protein)
-    $(`#eCarbsId`).val(default_profile.e.carbs)
-    $(`#legacyProteinRateId`).val(1);
-    $(`#legacyCarbRateId`).val(1);
-    clear_meal();
+    if(confirm("Are you sure you want to reset?")) {
+        $(`#eInsulinId`).val(default_profile.e.insulin)
+        $(`#eProteinId`).val(default_profile.e.protein)
+        $(`#eCarbsId`).val(default_profile.e.carbs)
+        $(`#legacyProteinRateId`).val(1);
+        $(`#legacyCarbRateId`).val(1);
+        clear_meal();
+    }
 }
 
 // Startup
