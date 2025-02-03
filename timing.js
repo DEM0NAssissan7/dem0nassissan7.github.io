@@ -3,7 +3,7 @@
 
 */
 
-const min_sugar = 79;
+const min_sugar = 80;
 
 function G(x, p) {
     let r = (3 / (4 * (p ** 3))) * ((p ** 2) - ((x - p) ** 2));

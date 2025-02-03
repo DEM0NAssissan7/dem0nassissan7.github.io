@@ -50,7 +50,9 @@ function calculate(carbs, protein) {
     let correction = round((current_sugar - target_sugar)/profile.e.insulin, 2);
     let correction_info = `${round(insulin + correction, 2)}u (${correction}u correction)`;
     
+    console.log(parseInt(current_sugar), parseInt(current_sugar) * 60)
     let insulin_delay = round(get_n_insulin(round(insulin + correction, 1), protein, carbs, parseInt(current_sugar)) * 60);
+    graph_sugar(round(insulin + correction, 1), protein, carbs, parseInt(current_sugar), insulin_delay / 60)
     console.log(insulin_delay);
 
     if(insulin_delay < 0) {
