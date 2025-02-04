@@ -59,7 +59,7 @@ function update_profile() {
 
 // Calibrations
 function update_storage() {
-    console.log("Hello")
+    console.log("updating storage")
     localStorage.setItem('einsulin', $(`#eInsulinId`).val());
     localStorage.setItem('eprotein', $(`#eProteinId`).val());
     localStorage.setItem('ecarbs', $(`#eCarbsId`).val());
