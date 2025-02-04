@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+    .slidecontainer {
+        width: 100%;
+        /* Width of the outside container */
+    }
+
+    /* The slider itself */
+    .slider {
+        width: 90%;
+        /* Full-width */
+        height: 25px;
+        /* Specified height */
+    }
+</style>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
     input {
         width: 50px;
     }
+
     button {
         width: fit-content;
     }
+
     canvas {
-        width: 100%;
-        height: 100%;
+        width: 70%;
+        height: 20%;
     }
 </style>
 
@@ -20,8 +37,73 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body style="width:100%;overflow: auto">
-<canvas id="canvas"></canvas>
+    <canvas id="canvas"></canvas>
+
+
+
+    <div>
+        <div id="pvalues">
+            <h3>P (Peak/Range) Values</h3>
+            <div class="slidecontainer">
+                Carbs:
+                <input type="range" step="0.01" min="0.2" max="5" value="1" class="slider" id="pcarbs">
+                <i id="pcarbsdisplay"></i>
+            </div>
+            <div class="slidecontainer">
+                Protein:
+                <input type="range" step="0.01" min="0.1" max="7" value="1.5" class="slider" id="pprotein">
+                <i id="pproteindisplay"></i>
+            </div>
+            <div class="slidecontainer">
+                Insulin:
+                <input type="range" step="0.01" min="0.1" max="5" value="1.2" class="slider" id="pinsulin">
+                <i id="pinsulindisplay"></i>
+            </div>
+        </div>
+    
+        <div id="nvalues">
+            <h3>N (Delay) Values</h3>
+            <div class="slidecontainer">
+                Carbs:
+                <input type="range" step="0.01" min="0" max="1" value="1" class="slider" id="ncarbs">
+                <i id="ncarbsdisplay"></i>
+            </div>
+            <div class="slidecontainer">
+                Protein:
+                <input type="range" step="0.01" min="0.3" max="4" value="1.2" class="slider" id="nprotein">
+                <i id="nproteindisplay"></i>
+            </div>
+            <div class="slidecontainer">
+                Insulin:
+                <input type="range" step="0.01" min="0" max="1" value="0.3" class="slider" id="ninsulin">
+                <i id="ninsulindisplay"></i>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <div id="evalues">
+        <h3>E (Effect) Values</h3>
+        <div class="slidecontainer">
+            Carbs:
+            <input type="range" step="0.01" min="1" max="10" value="4.1" class="slider" id="ecarbs">
+            <i id="ecarbsdisplay"></i>
+        </div>
+        <div class="slidecontainer">
+            Protein:
+            <input type="range" step="0.01" min="0.3" max="1.6" value="0.68" class="slider" id="eprotein">
+            <i id="eproteindisplay"></i>
+        </div>
+        <div class="slidecontainer">
+            Insulin:
+            <input type="range" step="0.01" min="25" max="60" value="36" class="slider" id="einsulin">
+            <i id="einsulindisplay"></i>
+        </div>
+    </div>
+
+
 </body>
 
 

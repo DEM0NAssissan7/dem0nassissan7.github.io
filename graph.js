@@ -51,7 +51,6 @@ function draw_background() {
 }
 
 function graph_sugar(insulin, protein, carbs, current_sugar, n_insulin) {
-    console.log('graphing')
     draw_background();
     draw_grid();
     ctx.fillStyle = "blue";
