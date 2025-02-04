@@ -1,17 +1,17 @@
 const profile = {
     e: {
-        carbs: 4.1, // 6.2 -> 5 -> 4.25 -> 4.4 -> 4.5
-        protein: 0.68, // 1.0339 -> 1.02 -> 1.019 -> 1.079
-        insulin: 36, // 35 -> 41 -> 48 -> 50 -> 49.8 -> 50.6
+        carbs: 4.32, // 4.28 -> 4.32
+        protein: 0.65, // 0.68 -> 0.65
+        insulin: 35.4, // 36.2 -> 35.4
     },
     n: {
         carbs: 0,
-        protein: 1.2,
-        insulin: 0.3
+        protein: 1.16,
+        insulin: 0.2
     },
     p: {
         carbs: 1,
-        protein: 1.5,
-        insulin: 1.2
+        protein: 1.54,
+        insulin: 1.25
     }
 }
