@@ -75,6 +75,7 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 1000) {
 
     // Starting integral value at a is 0
     let currentIntegral = y_offset;
+    let lastIntegral = currentIntegral;
     let maxVal = currentIntegral;
     let minVal = currentIntegral;
 
@@ -83,10 +84,11 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 1000) {
         const f1 = f(x1);
 
         // Trapezoidal increment
+        lastIntegral = currentIntegral;
         currentIntegral += (h * (f0 + f1)) / 2;
 
         // Check early termination condition
-        if (currentIntegral < minThreshold) {
+        if (currentIntegral < lastIntegral && lastIntegral <= minThreshold) {
             return null;
         }
 
