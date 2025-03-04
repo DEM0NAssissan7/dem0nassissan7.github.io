@@ -44,6 +44,24 @@
 
 
     <div>
+        <div id="evalues">
+            <h3>E (Effect) Values</h3>
+            <div class="slidecontainer">
+                Carbs:
+                <input type="range" step="0.01" min="1" max="10" value="4.1" class="slider" id="ecarbs">
+                <i id="ecarbsdisplay"></i>
+            </div>
+            <div class="slidecontainer">
+                Protein:
+                <input type="range" step="0.01" min="0.3" max="1.6" value="0.68" class="slider" id="eprotein">
+                <i id="eproteindisplay"></i>
+            </div>
+            <div class="slidecontainer">
+                Insulin:
+                <input type="range" step="0.01" min="25" max="60" value="36" class="slider" id="einsulin">
+                <i id="einsulindisplay"></i>
+            </div>
+        </div>
         <div id="pvalues">
             <h3>P (Peak/Range) Values</h3>
             <div class="slidecontainer">
@@ -80,29 +98,14 @@
                 <input type="range" step="0.01" min="0" max="1" value="0.3" class="slider" id="ninsulin">
                 <i id="ninsulindisplay"></i>
             </div>
+            <div class="slidecontainer">
+                System:
+                <input type="range" step="0.01" min="-0.7" max="0.5" value="0.3" class="slider" id="nsystem">
+                <i id="nsystemdisplay"></i>
+            </div>
         </div>
     </div>
-
     <br/>
-    <div id="evalues">
-        <h3>E (Effect) Values</h3>
-        <div class="slidecontainer">
-            Carbs:
-            <input type="range" step="0.01" min="1" max="10" value="4.1" class="slider" id="ecarbs">
-            <i id="ecarbsdisplay"></i>
-        </div>
-        <div class="slidecontainer">
-            Protein:
-            <input type="range" step="0.01" min="0.3" max="1.6" value="0.68" class="slider" id="eprotein">
-            <i id="eproteindisplay"></i>
-        </div>
-        <div class="slidecontainer">
-            Insulin:
-            <input type="range" step="0.01" min="25" max="60" value="36" class="slider" id="einsulin">
-            <i id="einsulindisplay"></i>
-        </div>
-    </div>
-
 
 </body>
 
