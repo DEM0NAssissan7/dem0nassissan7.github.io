@@ -74,6 +74,7 @@ function updateprofile() {
     profile.n.carbs = parseFloat($(`#ncarbs`).val());
     profile.n.protein = parseFloat($(`#nprotein`).val());
     profile.n.insulin = parseFloat($(`#ninsulin`).val());
+    profile.n.system = parseFloat($(`#nsystem`).val());
 
     profile.p.carbs = parseFloat($(`#pcarbs`).val());
     profile.p.protein = parseFloat($(`#pprotein`).val());
@@ -87,6 +88,7 @@ function updateprofile() {
     $(`#ncarbsdisplay`).html(profile.n.carbs);
     $(`#nproteindisplay`).html(profile.n.protein);
     $(`#ninsulindisplay`).html(profile.n.insulin);
+    $(`#nsystemdisplay`).html(profile.n.system);
 
     $(`#pcarbsdisplay`).html(profile.p.carbs);
     $(`#pproteindisplay`).html(profile.p.protein);

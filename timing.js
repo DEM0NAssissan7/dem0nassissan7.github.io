@@ -36,7 +36,7 @@ function f_protein(t, protein) {
 }
 
 function f(t, n_insulin, insulin, carbs, protein) {
-    return f_insulin(t, insulin, n_insulin) + f_carbs(t, carbs) + f_protein(t, protein);
+    return f_insulin(t - profile.n.system, insulin, n_insulin) + f_carbs(t - profile.n.system, carbs) + f_protein(t - profile.n.system, protein);
 }
 
 const precision = 60;
