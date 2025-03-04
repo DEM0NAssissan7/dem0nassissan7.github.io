@@ -93,7 +93,7 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 5000) {
         //     console.log("UH OH", currentIntegral)
         //     return null;
         // }
-        if (currentIntegral <= minThreshold) {
+        if (currentIntegral <= lastIntegral && currentIntegral <= minThreshold) {
             return null;
         }
 
