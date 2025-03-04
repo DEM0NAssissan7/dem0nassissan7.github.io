@@ -78,7 +78,7 @@ function save_meal() {
     let s = stringify_meal(meal, meal_name);
     saved_meals.push(s);
     update_storage();
-    update_saved_meals_selector();
+    location.reload();
 }
 function update_saved_meals_selector() {
     for(let meal_string of saved_meals) {
