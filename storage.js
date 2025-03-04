@@ -23,6 +23,7 @@ function objectify_food(food) {
         name: food.display_name,
         protein_rate: food.protein_rate,
         carb_rate: food.carb_rate,
+        fat_rate: food.fat_rate,
         tooltip: food.tooltip,
         measurement: food.measurement,
         value: food.element.value
@@ -37,13 +38,14 @@ function stringify_meal(meal) {
 function import_meal(meal_string) {
     let meal_skeleton = JSON.parse(meal_string);
     for(let food of meal_skeleton) {
-        let _food = add_food_element(food.name, food.carb_rate, food.protein_rate, food.tooltip, food.measurement);
+        let _food = add_food_element(food.name, food.carb_rate, food.protein_rate, food.fat_rate, food.tooltip, food.measurement);
         _food.element.value = food.value;
     }
 }
 function clear_meal() {
     $(`#carbsId`).val(0);
     $(`#proteinId`).val(0);
+    $(`#fatId`).val(0);
     update_storage();
     localStorage.setItem('meal', stringify_meal([])); // Put a clear meal
     location.reload();
@@ -67,6 +69,7 @@ function update_storage() {
 
     localStorage.setItem('carbs', $(`#carbsId`).val());
     localStorage.setItem('protein', $(`#proteinId`).val());
+    localStorage.setItem('fat', $(`#fatId`).val());
 
     localStorage.setItem('meal', stringify_meal(meal));
 }
@@ -77,6 +80,7 @@ function update_input_boxes() {
 
     $(`#carbsId`).val(localStorage.getItem('carbs'));
     $(`#proteinId`).val(localStorage.getItem('protein'));
+    $(`#fatId`).val(localStorage.getItem('fat'));
 }
 
 
@@ -108,6 +112,7 @@ function init_storage() {
 
     localStorage.setItem('carbs', 0);
     localStorage.setItem('protein', 0);
+    localStorage.setItem('fat', 0);
     
     localStorage.setItem('meal', stringify_meal([])); // Put a clear meal
 }

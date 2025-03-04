@@ -50,9 +50,9 @@ function draw_background() {
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 }
 
-function graph_sugar(insulin, protein, carbs, current_sugar, n_insulin) {
+function graph_sugar(insulin, protein, carbs, fat, current_sugar, n_insulin) {
     draw_background();
     draw_grid();
     ctx.fillStyle = "blue";
-    graph_line(i => integral_range(a => f(a, n_insulin, insulin, carbs, protein), current_sugar, graph_start, i, 0).integral)
+    graph_line(i => integral_range(a => f(a, n_insulin, insulin, carbs, protein, fat), current_sugar, graph_start, i, 0).integral)
 }

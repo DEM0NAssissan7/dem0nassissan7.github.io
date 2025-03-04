@@ -25,31 +25,34 @@ function H(x, p) {
 }
 
 
-function f_insulin(t, insulin, n_insulin) {
+function f_insulin(t, insulin, n_insulin, n_) {
     return insulin * -profile.e.insulin * H(t - profile.n.insulin - n_insulin, profile.p.insulin);
 }
-function f_carbs(t, carbs) {
-    return carbs * profile.e.carbs * G(t - profile.n.carbs, profile.p.carbs);
+function f_carbs(t, carbs, fat) {
+    return carbs * profile.e.carbs * H(t - profile.n.carbs - (profile.d.fat.n.carbs * fat),
+    profile.p.carbs + (profile.d.fat.p.carbs * fat));
 }
-function f_protein(t, protein) {
-    return protein * profile.e.protein * G(t - profile.n.protein, profile.p.protein);
+function f_protein(t, protein, fat) {
+    return protein * profile.e.protein * G(t - profile.n.protein - (profile.d.fat.n.protein * fat),
+    profile.p.protein + (profile.d.fat.p.protein * fat));
 }
 
-function f(t, n_insulin, insulin, carbs, protein) {
-    return f_insulin(t - profile.n.system, insulin, n_insulin) + f_carbs(t - profile.n.system, carbs) + f_protein(t - profile.n.system, protein);
+function f(t, n_insulin, insulin, carbs, protein, fat) {
+    let x = t - profile.n.system;
+    return f_insulin(x, insulin, n_insulin) + f_carbs(x, carbs, fat) + f_protein(x, protein, fat);
 }
 
 const precision = 60;
 const time_frame = 7;
 const insulin_timing_range = [-1, 1];
-function get_n_insulin(insulin, protein, carbs, current_sugar) {
+function get_n_insulin(insulin, protein, carbs, fat, current_sugar) {
     // Try n-insulin ranges from -0.6 to 0.8, testing every 2 minute increment
     let time = null;
     let max = Infinity;
     let delta = Infinity;
     for (let i = insulin_timing_range[0]; i < insulin_timing_range[1]; i += (1 / 60)) {
         // let range = get_sugar_range(i, insulin, protein, carbs, current_sugar);
-        let range = integral_range(a => f(a, i, insulin, carbs, protein), current_sugar, -1, time_frame, min_sugar);
+        let range = integral_range(a => f(a, i, insulin, carbs, protein, fat), current_sugar, -1, time_frame, min_sugar);
         if(!range) continue;
         let d = range.max - range.min;
         if (range.max < max) {

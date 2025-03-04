@@ -7,12 +7,24 @@ const profile = {
     n: {
         carbs: 0.0,
         protein: 0.64,
-        insulin: 0.2,
+        insulin: 0.25,
         system: 0, // Do NOT change this value
     },
     p: {
-        carbs: 0.83,
+        carbs: 0.65,
         protein: 1.54,
         insulin: 1.25,
+    },
+    d: {
+        fat: { // Number modifications due to fat (per gram)
+            p: {
+                carbs: 0.0010,
+                protein: 0.003
+            },
+            n: {
+                carbs: 0.0004,
+                protein: 0.001,
+            }
+        }
     }
 }
