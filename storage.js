@@ -64,7 +64,7 @@ function clear_meal() {
     $(`#proteinId`).val(0);
     update_storage();
     clear_meal_storage();
-    location.reload();
+        location.reload();
 }
 
 // Custom Meal Saving
@@ -130,8 +130,8 @@ function clear_calibrations() {
 }
 function clear_storage() {
     if(confirm("Are you sure you want to reset?")) {
-        clear_calibrations();
-        clear_meal();
+        localStorage.clear(); // Entirely wipe localstorage
+        location.reload();
     }
 }
 
