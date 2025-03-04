@@ -49,8 +49,7 @@ function get_n_insulin(insulin, protein, carbs, current_sugar) {
     let delta = Infinity;
     for (let i = insulin_timing_range[0]; i < insulin_timing_range[1]; i += (1 / 60)) {
         // let range = get_sugar_range(i, insulin, protein, carbs, current_sugar);
-        console.log(i * 60)
-        let range = integral_range(a => f(a, i, insulin, carbs, protein), current_sugar, 0, time_frame, min_sugar);
+        let range = integral_range(a => f(a, i, insulin, carbs, protein), current_sugar, -1, time_frame, min_sugar);
         if(!range) continue;
         let d = range.max - range.min;
         if (range.max < max) {
@@ -68,7 +67,7 @@ function get_n_insulin(insulin, protein, carbs, current_sugar) {
 }
 
 // Shoutout ChatGPT
-function integral_range(f, y_offset, a, b, minThreshold, n = 5000) {
+function integral_range(f, y_offset, a, b, minThreshold, n = 1000) {
     const h = (b - a) / n;
 
     let x0 = a;
@@ -85,7 +84,6 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 5000) {
         const f1 = f(x1);
 
         // Trapezoidal increment
-        lastIntegral = currentIntegral;
         currentIntegral += (h * (f0 + f1)) / 2;
 
         // Check early termination condition
@@ -93,7 +91,7 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 5000) {
         //     console.log("UH OH", currentIntegral)
         //     return null;
         // }
-        if (currentIntegral <= lastIntegral && currentIntegral <= minThreshold) {
+        if (currentIntegral < lastIntegral && currentIntegral <= minThreshold) {
             return null;
         }
 
@@ -108,6 +106,7 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 5000) {
         // Move to next interval
         x0 = x1;
         f0 = f1;
+        lastIntegral = currentIntegral;
     }
 
     return { integral: currentIntegral, max: maxVal, min: minVal };
