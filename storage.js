@@ -65,9 +65,6 @@ function update_storage() {
     localStorage.setItem('ecarbs', $(`#eCarbsId`).val());
     update_profile();
 
-    localStorage.setItem('legacycarbrate', $(`#legacyCarbRateId`).val());
-    localStorage.setItem('legacyproteinrate', $(`#legacyProteinRateId`).val());
-
     localStorage.setItem('carbs', $(`#carbsId`).val());
     localStorage.setItem('protein', $(`#proteinId`).val());
 
@@ -77,9 +74,6 @@ function update_input_boxes() {
     $(`#eInsulinId`).val(localStorage.getItem('einsulin'));
     $(`#eProteinId`).val(localStorage.getItem('eprotein'));
     $(`#eCarbsId`).val(localStorage.getItem('ecarbs'));
-
-    $(`#legacyCarbRateId`).val(localStorage.getItem('legacycarbrate'));
-    $(`#legacyProteinRateId`).val(localStorage.getItem('legacyproteinrate'));
 
     $(`#carbsId`).val(localStorage.getItem('carbs'));
     $(`#proteinId`).val(localStorage.getItem('protein'));
@@ -92,8 +86,6 @@ function clear_storage() {
         $(`#eInsulinId`).val(default_profile.e.insulin)
         $(`#eProteinId`).val(default_profile.e.protein)
         $(`#eCarbsId`).val(default_profile.e.carbs)
-        $(`#legacyProteinRateId`).val(1);
-        $(`#legacyCarbRateId`).val(1);
         clear_meal();
     }
 }
@@ -113,9 +105,6 @@ function init_storage() {
     localStorage.setItem('einsulin', profile.e.insulin);
     localStorage.setItem('eprotein', profile.e.protein);
     localStorage.setItem('ecarbs', profile.e.carbs);
-
-    localStorage.setItem('legacycarbrate', 1);
-    localStorage.setItem('legacyproteinrate', 1);
 
     localStorage.setItem('carbs', 0);
     localStorage.setItem('protein', 0);

@@ -5,10 +5,10 @@ const profile = {
         insulin: 32, // 36.2 -> 35.4 -> 33.4
     },
     n: {
-        carbs: 0,
+        carbs: 0.0,
         protein: 0.64,
         insulin: 0.2,
-        system: 0,
+        system: 0, // Do NOT change this value
     },
     p: {
         carbs: 0.83,
