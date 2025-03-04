@@ -28,24 +28,69 @@ function objectify_food(food) {
         value: food.element.value
     };
 }
-function stringify_meal(meal) {
+function stringify_meal(meal, meal_name) {
     let foods = [];
     for(let food of meal)
         foods.push(objectify_food(food));
-    return JSON.stringify(foods);
+    return JSON.stringify([foods,
+        {carbs: parseFloat($(`#carbsId`).val()),
+        protein: parseFloat($(`#proteinId`).val()),
+        meal_name
+    }]);
+}
+function parse_meal(meal_string) {
+    let meal_skeleton = JSON.parse(meal_string);
+    return {
+        foods: meal_skeleton[0],
+        meta: meal_skeleton[1]
+    }
 }
 function import_meal(meal_string) {
-    let meal_skeleton = JSON.parse(meal_string);
-    for(let food of meal_skeleton) {
+    meal = []
+    let meal_info = parse_meal(meal_string);
+    for(let food of meal_info.foods) {
         let _food = add_food_element(food.name, food.carb_rate, food.protein_rate, food.tooltip, food.measurement);
         _food.element.value = food.value;
     }
+
+    $(`#carbsId`).val(meal_info.meta.carbs);
+    $(`#proteinId`).val(meal_info.meta.protein);
+}
+function clear_meal_storage() {
+    localStorage.setItem('meal', stringify_meal([])); // Put a clear meal
 }
 function clear_meal() {
     $(`#carbsId`).val(0);
     $(`#proteinId`).val(0);
     update_storage();
-    localStorage.setItem('meal', stringify_meal([])); // Put a clear meal
+    clear_meal_storage();
+    location.reload();
+}
+
+// Custom Meal Saving
+let saved_meals = [];
+function load_saved_meals() {
+    saved_meals = JSON.parse(localStorage.getItem("custom_meals"));
+    update_saved_meals_selector();
+}
+function save_meal() {
+    let meal_name = prompt("Enter Meal Name");
+    let s = stringify_meal(meal, meal_name);
+    saved_meals.push(s);
+    update_storage();
+    update_saved_meals_selector();
+}
+function update_saved_meals_selector() {
+    for(let meal_string of saved_meals) {
+        let meal = parse_meal(meal_string);
+        console.log(meal);
+        $(`#loadMealId`).append(new Option(meal.meta.meal_name, meal_string));
+    }
+}
+function import_saved_meal() {
+    clear_meal_storage(); // Clear old meal
+    import_meal($(`#loadMealId`).val());
+    update_storage();
     location.reload();
 }
 
@@ -65,27 +110,27 @@ function update_storage() {
     localStorage.setItem('ecarbs', $(`#eCarbsId`).val());
     update_profile();
 
-    localStorage.setItem('carbs', $(`#carbsId`).val());
-    localStorage.setItem('protein', $(`#proteinId`).val());
-
     localStorage.setItem('meal', stringify_meal(meal));
+
+    localStorage.setItem("custom_meals", JSON.stringify(saved_meals));
 }
 function update_input_boxes() {
     $(`#eInsulinId`).val(localStorage.getItem('einsulin'));
     $(`#eProteinId`).val(localStorage.getItem('eprotein'));
     $(`#eCarbsId`).val(localStorage.getItem('ecarbs'));
-
-    $(`#carbsId`).val(localStorage.getItem('carbs'));
-    $(`#proteinId`).val(localStorage.getItem('protein'));
 }
 
 
 // User Tooling
+function clear_calibrations() {
+    $(`#eInsulinId`).val(default_profile.e.insulin)
+    $(`#eProteinId`).val(default_profile.e.protein)
+    $(`#eCarbsId`).val(default_profile.e.carbs)
+    update_storage();
+}
 function clear_storage() {
     if(confirm("Are you sure you want to reset?")) {
-        $(`#eInsulinId`).val(default_profile.e.insulin)
-        $(`#eProteinId`).val(default_profile.e.protein)
-        $(`#eCarbsId`).val(default_profile.e.carbs)
+        clear_calibrations();
         clear_meal();
     }
 }
@@ -94,6 +139,7 @@ function clear_storage() {
 function import_meal_storage() {
     console.log("Importing meal from local storage")
     import_meal(localStorage.getItem('meal'));
+    load_saved_meals();
     setTimeout(calculate_meal, 200);
 }
 function storage_is_valid() {
@@ -105,11 +151,9 @@ function init_storage() {
     localStorage.setItem('einsulin', profile.e.insulin);
     localStorage.setItem('eprotein', profile.e.protein);
     localStorage.setItem('ecarbs', profile.e.carbs);
-
-    localStorage.setItem('carbs', 0);
-    localStorage.setItem('protein', 0);
     
     localStorage.setItem('meal', stringify_meal([])); // Put a clear meal
+    localStorage.setItem('custom_meals', JSON.stringify([])); // Put a clear meal
 }
 
 if(!storage_is_valid()) init_storage();

@@ -42,6 +42,9 @@
         <br>
         E Carbs:
         <input type="number" id="eCarbsId" value="4.5" /> mg/dLg
+        <br>
+        <button type="button" onclick="clear_calibrations()">Clear Calibrations</button>
+        <button type="button" onclick="clear_storage()">Clear All Data</button>
     </div>
 </div>
 
@@ -53,6 +56,15 @@
     <br />
     <br />
     Protein: <input type="number" id="proteinId" value='0'/>
+</div>
+
+<div id="savedMealsId">
+    <h3>
+        Saved Meals
+    </h3>
+    <select id="loadMealId" style="width: fit-content">
+    </select>
+    <button type="button" onclick="import_saved_meal()">Load Meal</button>
 </div>
 
 <div id="mealPlannerId">
@@ -73,7 +85,9 @@
     <br/>
     <button type="button" onclick="calculate_meal()">Calculate</button>
     <button type="button" onclick="clear_meal()">Clear Meal</button>
-    <button type="button" onclick="clear_storage()">Clear Data</button>
+    <br>
+    <br>
+    <button type="button" onclick="save_meal()">Save Meal</button>
 </div>
 
 <div>
