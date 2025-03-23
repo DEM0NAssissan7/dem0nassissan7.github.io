@@ -35,8 +35,13 @@ function f_protein(t, protein) {
     return protein * profile.e.protein * G(t - profile.n.protein, profile.p.protein);
 }
 
+function f_meal(t, carbs, protein) {
+    return (carbs * profile.e.carbs + protein * profile.e.protein) * G(t - profile.n.carbs, profile.p.carbs);
+}
+
 function f(t, n_insulin, insulin, carbs, protein) {
-    return f_insulin(t - profile.n.system, insulin, n_insulin) + f_carbs(t - profile.n.system, carbs) + f_protein(t - profile.n.system, protein);
+    // return f_insulin(t - profile.n.system, insulin, n_insulin) + f_meal(t, carbs, protein);
+    return f_insulin(t - profile.n.system, insulin, n_insulin) + f_carbs(t - profile.n.system, carbs) + f_protein(t - profile.n.system, protein)
 }
 
 const precision = 60;
