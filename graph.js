@@ -4,7 +4,7 @@ let ctx = canvas.getContext('2d');
 const graph_start = -1;
 const graph_end = 6;
 const graph_bottom = 60;
-const graph_top = 128;
+const graph_top = 140;
 
 const horizontal_area = graph_end - graph_start;
 const vertical_area = graph_top - graph_bottom;
