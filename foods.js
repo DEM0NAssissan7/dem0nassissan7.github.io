@@ -15,7 +15,7 @@ add_food("Chicken Thigh (boneless)", 0, 24);
 add_food("Chicken Thigh (bone-in)", 0, 18);
 add_food("Chicken Quarter (bone-in)", 0, 12.5);
 add_food("Cucumber", 3.6, 0.7);
-add_food_amount("Eggs (scrambled)", 0.8, 6);
+add_food_amount("Eggs (large, scrambled)", 0.6, 6);
 add_food("Garlic", 33, 6.5);
 add_food("Ground Beef", 0, 27.4);
 add_food("Ground Lamb", 0, 24.7);
