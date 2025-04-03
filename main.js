@@ -81,6 +81,7 @@ function input_handler(e) {
     setTimeout(update_storage, 10);
 }
 document.addEventListener("keyup", input_handler);
+document.addEventListener("mouseup", input_handler);
 
 /* Food Database */
 // add_food(name, carb content per 100g, protein content per 100g)
