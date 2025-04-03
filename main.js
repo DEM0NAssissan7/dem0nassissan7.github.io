@@ -76,11 +76,11 @@ function calculate(carbs, protein) {
 }
 
 // Nice event listener
-document.addEventListener("keyup", (e) => {
+function input_handler(e) {
     e = e || window.event
     setTimeout(update_storage, 10);
-});
-});
+}
+document.addEventListener("keyup", input_handler);
 
 /* Food Database */
 // add_food(name, carb content per 100g, protein content per 100g)
