@@ -78,8 +78,8 @@ function calculate(carbs, protein) {
 // Nice event listener
 document.addEventListener("keyup", (e) => {
     e = e || window.event
-    setTimeout(calculate_meal, 10);
-    setTimeout(update_storage, 10)
+    setTimeout(update_storage, 10);
+});
 });
 
 /* Food Database */

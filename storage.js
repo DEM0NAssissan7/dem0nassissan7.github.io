@@ -100,6 +100,7 @@ function update_profile() {
     profile.e.insulin = localStorage.getItem("einsulin");
     profile.e.protein = localStorage.getItem("eprotein");
     profile.e.carbs = localStorage.getItem("ecarbs");
+    calculate_meal();
 }
 
 // Calibrations
