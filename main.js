@@ -78,7 +78,10 @@ function calculate(carbs, protein) {
 // Nice event listener
 function input_handler(e) {
     e = e || window.event
-    setTimeout(update_storage, 10);
+    setTimeout(() => {
+        update_storage();
+        calculate_meal();
+    }, 10);
 }
 document.addEventListener("keyup", input_handler);
 document.addEventListener("mouseup", input_handler);
