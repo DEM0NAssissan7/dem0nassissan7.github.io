@@ -2,7 +2,8 @@ const profile = {
     e: {
         carbs: 4.75, // 4.28 -> 4.32 -> 4.75
         protein: 1.23, // 0.68 -> 0.65 -> 0.72
-        insulin: 28.7, // 36.2 -> 35.4 -> 33.4 -> 35.4 -> 30.5
+        insulin: 31, // 36.2 -> 35.4 -> 33.4 -> 35.4 -> 30.5
+        sugar: 1, // How much 1 mg/dL of glucose above 83 causes e-insulin to decrease
     },
     p: {
         carbs: 1, // 0.83 -> 1.21 -> 1.55

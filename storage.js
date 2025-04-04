@@ -100,6 +100,7 @@ function update_profile() {
     profile.e.insulin = localStorage.getItem("einsulin");
     profile.e.protein = localStorage.getItem("eprotein");
     profile.e.carbs = localStorage.getItem("ecarbs");
+    profile.e.sugar = localStorage.getItem("esugar");
 }
 
 // Calibrations
@@ -108,6 +109,7 @@ function update_storage() {
     localStorage.setItem('einsulin', $(`#eInsulinId`).val());
     localStorage.setItem('eprotein', $(`#eProteinId`).val());
     localStorage.setItem('ecarbs', $(`#eCarbsId`).val());
+    localStorage.setItem('esugar', $(`#eSugarId`).val());
     update_profile();
 
     localStorage.setItem('meal', stringify_meal(meal));
@@ -118,6 +120,7 @@ function update_input_boxes() {
     $(`#eInsulinId`).val(localStorage.getItem('einsulin'));
     $(`#eProteinId`).val(localStorage.getItem('eprotein'));
     $(`#eCarbsId`).val(localStorage.getItem('ecarbs'));
+    $(`#eSugarId`).val(localStorage.getItem('esugar'));
 }
 
 
@@ -126,6 +129,7 @@ function clear_calibrations() {
     $(`#eInsulinId`).val(default_profile.e.insulin)
     $(`#eProteinId`).val(default_profile.e.protein)
     $(`#eCarbsId`).val(default_profile.e.carbs)
+    $(`#eSugarId`).val(default_profile.e.sugar)
     update_storage();
 }
 function clear_storage() {
@@ -151,6 +155,7 @@ function init_storage() {
     localStorage.setItem('einsulin', profile.e.insulin);
     localStorage.setItem('eprotein', profile.e.protein);
     localStorage.setItem('ecarbs', profile.e.carbs);
+    localStorage.setItem('esugar', profile.e.sugar);
     
     localStorage.setItem('meal', stringify_meal([])); // Put a clear meal
     localStorage.setItem('custom_meals', JSON.stringify([])); // Put a clear meal

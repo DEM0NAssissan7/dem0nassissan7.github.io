@@ -25,8 +25,8 @@ function H(x, p) {
 }
 
 
-function f_insulin(t, insulin, n_insulin) {
-    return insulin * -profile.e.insulin * G(t - profile.n.insulin - n_insulin, profile.p.insulin);
+function f_insulin(t, insulin, n_insulin, sugar) {
+    return - insulin * (profile.e.insulin - Math.max((sugar - 95) * (profile.e.sugar/10), 0)) * G(t - profile.n.insulin - n_insulin, profile.p.insulin);
 }
 function f_carbs(t, carbs) {
     return carbs * profile.e.carbs * G(t - profile.n.carbs, profile.p.carbs);
@@ -39,9 +39,9 @@ function f_meal(t, carbs, protein) {
     return (carbs * profile.e.carbs + protein * profile.e.protein) * G(t - profile.n.carbs, profile.p.carbs);
 }
 
-function f(t, n_insulin, insulin, carbs, protein) {
+function f(t, n_insulin, insulin, carbs, protein, sugar) {
     // return f_insulin(t - profile.n.system, insulin, n_insulin) + f_meal(t, carbs, protein);
-    return f_insulin(t - profile.n.system, insulin, n_insulin) + f_carbs(t - profile.n.system, carbs) + f_protein(t - profile.n.system, protein)
+    return f_insulin(t - profile.n.system, insulin, n_insulin, sugar) + f_carbs(t - profile.n.system, carbs) + f_protein(t - profile.n.system, protein)
 }
 
 const precision = 60;
@@ -54,7 +54,7 @@ function get_n_insulin(insulin, protein, carbs, current_sugar) {
     let delta = Infinity;
     for (let i = insulin_timing_range[0]; i < insulin_timing_range[1]; i += (1 / 60)) {
         // let range = get_sugar_range(i, insulin, protein, carbs, current_sugar);
-        let range = integral_range(a => f(a, i, insulin, carbs, protein), current_sugar, -1, time_frame, min_sugar);
+        let range = integral_range((a, s) => f(a, i, insulin, carbs, protein, current_sugar), current_sugar, -1, time_frame, min_sugar);
         if(!range) continue;
         let d = range.max - range.min;
         if (range.max < max) {
@@ -76,7 +76,7 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 1000) {
     const h = (b - a) / n;
 
     let x0 = a;
-    let f0 = f(x0);
+    let f0 = f(x0, y_offset);
 
     // Starting integral value at a is 0
     let currentIntegral = y_offset;
@@ -86,7 +86,7 @@ function integral_range(f, y_offset, a, b, minThreshold, n = 1000) {
 
     for (let i = 1; i <= n; i++) {
         const x1 = a + i * h;
-        const f1 = f(x1);
+        const f1 = f(x1, currentIntegral);
 
         // Trapezoidal increment
         currentIntegral += (h * (f0 + f1)) / 2;
@@ -121,7 +121,7 @@ function get_sugar_range(n_insulin, insulin, protein, carbs, current_sugar) {
     let max = 0;
     let s = current_sugar;
     for (let i = 0; i < time_frame; i += (1 / precision)) {
-        s += (f_insulin(i, insulin, n_insulin) + f_carbs(i, carbs) + f_protein(i, protein)) / precision;
+        s += (f_insulin(i, insulin, n_insulin, s) + f_carbs(i, carbs) + f_protein(i, protein)) / precision;
         // if(s < min_sugar) return;
         if (s < min) min = s;
         if (s > max) max = s;
