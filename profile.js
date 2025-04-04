@@ -7,12 +7,14 @@ const profile = {
     p: {
         carbs: 1, // 0.83 -> 1.21 -> 1.55
         protein: 2.15, // 1.54 -> 1.97 -> 1.83
-        insulin: 1.77, // 1.25 -> 1.77
+        insulin: 2.55, // 1.25 -> 1.77
+        insulin_mult: 0.09, // How much one unit of insulin causes it to peak faster
     },
     n: {
         carbs: 0.0, // 0.0
         protein: 0.8, // 0.64
-        insulin: 0.5, // 0.2 -> 0.5
+        insulin: 0.58, // 0.2 -> 0.5
+        insulin_mult: 0.08, // How much one unit of insulin causes it to work faster
         system: 0, // Do NOT change this value; debug only
     }
 }

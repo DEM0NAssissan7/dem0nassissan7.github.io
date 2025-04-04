@@ -385,10 +385,12 @@ function updateprofile() {
     profile.n.protein = parseFloat($(`#nprotein`).val());
     profile.n.insulin = parseFloat($(`#ninsulin`).val());
     profile.n.system = parseFloat($(`#nsystem`).val());
+    profile.n.insulin_mult = parseFloat($(`#ninsulinmult`).val());
 
     profile.p.carbs = parseFloat($(`#pcarbs`).val());
     profile.p.protein = parseFloat($(`#pprotein`).val());
     profile.p.insulin = parseFloat($(`#pinsulin`).val());
+    profile.p.insulin_mult = parseFloat($(`#pinsulinmult`).val());
 
 
     $(`#ecarbsdisplay`).html(profile.e.carbs);
@@ -398,11 +400,13 @@ function updateprofile() {
     $(`#ncarbsdisplay`).html(profile.n.carbs);
     $(`#nproteindisplay`).html(profile.n.protein);
     $(`#ninsulindisplay`).html(profile.n.insulin);
+    $(`#ninsulinmultdisplay`).html(profile.n.insulin_mult);
     $(`#nsystemdisplay`).html(profile.n.system);
 
     $(`#pcarbsdisplay`).html(profile.p.carbs);
     $(`#pproteindisplay`).html(profile.p.protein);
     $(`#pinsulindisplay`).html(profile.p.insulin);
+    $(`#pinsulinmultdisplay`).html(profile.p.insulin_mult);
 
     graph_meals();
 }
@@ -416,10 +420,12 @@ function initialize_sliders () {
     $(`#ncarbs`).val(profile.n.carbs);
     $(`#nprotein`).val(profile.n.protein);
     $(`#ninsulin`).val(profile.n.insulin);
+    $(`#ninsulinmult`).val(profile.n.insulin_mult);
 
     $(`#pcarbs`).val(profile.p.carbs);
     $(`#pprotein`).val(profile.p.protein);
     $(`#pinsulin`).val(profile.p.insulin);
+    $(`#pinsulinmult`).val(profile.p.insulin_mult);
 }
 setTimeout(() => {
     initialize_sliders();
