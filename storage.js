@@ -62,9 +62,10 @@ function clear_meal_storage() {
 function clear_meal() {
     $(`#carbsId`).val(0);
     $(`#proteinId`).val(0);
+    meal = [];
     update_storage();
     clear_meal_storage();
-        location.reload();
+    location.reload();
 }
 
 // Custom Meal Saving
