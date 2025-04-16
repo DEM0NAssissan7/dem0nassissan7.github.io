@@ -9,6 +9,7 @@ add_food("Bass (bone-in)", 0.1, 22.6);
 add_food_amount("Beef Bacon -strip-", 0, 3);
 add_food("Beef (short ribs)", 0, 22);
 add_food("Bell Peppers (green)", 4.6, 0);
+add_food("Cauliflower", 5, 1.9);
 add_food("Celery", 3, 0);
 add_food("Chicken Breast", 0, 31);
 add_food("Chicken Thigh (boneless)", 0, 24);
