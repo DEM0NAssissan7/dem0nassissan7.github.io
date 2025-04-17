@@ -116,6 +116,7 @@ function update_storage() {
     localStorage.setItem('eprotein', $(`#eProteinId`).val());
     localStorage.setItem('ecarbs', $(`#eCarbsId`).val());
     update_profile();
+    save_timestamp();
 
     localStorage.setItem('meal', stringify_meal(meal));
 
@@ -127,6 +128,14 @@ function update_input_boxes() {
     $(`#eCarbsId`).val(localStorage.getItem('ecarbs'));
 }
 
+// Timestamp
+function save_timestamp() {
+    localStorage.setItem("timestamp", timestamp)
+}
+function get_timestamp() {
+    timestamp = new Date(localStorage.getItem("timestamp"));
+    update_timestamp_display(); // make sure we show the last timestamp
+}
 
 // User Tooling
 function clear_calibrations() {
@@ -162,8 +171,10 @@ function init_storage() {
     
     localStorage.setItem('meal', stringify_meal([])); // Put a clear meal
     localStorage.setItem('custom_meals', JSON.stringify([])); // Put a clear meal
+    localStorage.setItem('timestamp', new Date());
 }
 
 if(!storage_is_valid()) init_storage();
 update_input_boxes(); // Put cookie values on startup
 import_meal_storage();
+get_timestamp(); // Get last timestamp

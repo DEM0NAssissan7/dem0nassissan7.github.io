@@ -35,45 +35,74 @@ function calculate(carbs, protein) {
 
     // if (protein === NaN || carb === NaN) return;
     // let insulin_actual = ((protein * proteinBase) / 28 + (carbBase * carbs) / 8)
-    
-    // New calculation:
-    insulin_actual = ((protein * profile.e.protein) + (carbs * profile.e.carbs))/(profile.e.insulin);
 
-    insulin = round(insulin_actual + (offset/4), 2)
+    // New calculation:
+    insulin_actual = ((protein * profile.e.protein) + (carbs * profile.e.carbs)) / (profile.e.insulin);
+
+    insulin = round(insulin_actual + (offset / 4), 2)
     if (!insulin || insulin < 0) insulin = 0;
-    
+
     $(`#actualId`).html(insulin);
     let info = (` - ${round(carbs, 1)}\ng carbs | ${round(protein, 1)}g protein`);
-    if(offset && round(offset/4, 4) !== 0) {
+    if (offset && round(offset / 4, 4) !== 0) {
         info += ` - (${round(insulin_actual, 2)} units actual)\n`
     }
-    let correction = round((current_sugar - target_sugar)/profile.e.insulin, 2);
+    let correction = round((current_sugar - target_sugar) / profile.e.insulin, 2);
     let correction_info = `${round(insulin + correction, 2)}u (${correction}u correction)`;
-    
+
     console.log(parseInt(current_sugar), parseInt(current_sugar) * 60)
     let insulin_delay = round(get_n_insulin(round(insulin + correction, 1), protein, carbs, parseInt(current_sugar)) * 60);
     graph_sugar(round(insulin + correction, 1), protein, carbs, parseInt(current_sugar), insulin_delay / 60)
     console.log(insulin_delay);
 
-    if(insulin_delay < 0) {
+    if (insulin_delay < 0) {
         $(`#waitId`).html(`Take injection ${-insulin_delay} minutes before eating`);
     }
-    if(insulin_delay === 0) {
+    if (insulin_delay === 0) {
         $(`#waitId`).html(`Take injection and eat immediately`);
-    } else if(!insulin_delay) {
+    } else if (!insulin_delay) {
         $(`#waitId`).html("");
     }
-    if(insulin_delay > 0) {
+    if (insulin_delay > 0) {
         $(`#waitId`).html(`Take injection ${insulin_delay} minutes after eating`);
     }
-    
-    if(correction !== 0) {
+
+    if (correction !== 0) {
         $(`#correctedId`).html(correction_info);
     } else {
         $(`#correctedId`).html("");
     }
     $(`#infoId`).html(info);
 }
+
+// Timestamp
+let timestamp = new Date();
+function convert24to12(hour24) {
+    if (hour24 === 0) {
+        return { hour: 12, period: 'AM' };
+    } else if (hour24 === 12) {
+        return { hour: 12, period: 'PM' };
+    } else if (hour24 > 0 && hour24 < 12) {
+        return { hour: hour24, period: 'AM' };
+    } else { // hour24 > 12 && hour24 < 24
+        return { hour: hour24 - 12, period: 'PM' };
+    }
+}
+function update_timestamp() {
+    console.log("Updating timestamp");
+    timestamp = new Date();
+    update_timestamp_display();
+}
+function update_timestamp_display() {
+    twelve = convert24to12(timestamp.getHours());
+    $("#timestampId").html(`Last modified ${twelve.hour}:${timestamp.getMinutes()} ${twelve.period}`);
+}
+// Create timestamp event listeners
+$("#proteinId").on('keyup', update_timestamp);
+$("#carbsId").on('keyup', update_timestamp);
+$("#currentSugarId").on('keyup', update_timestamp);
+$("#loadMealId").on('mouseup', update_timestamp);
+$("#loadMealButton").on('mouseup', update_timestamp);
 
 // Nice event listener
 function input_handler(e) {
@@ -148,6 +177,7 @@ function add_food_element(name, carbs, protein, tooltip, measurement) {
         }, 4);
     }
     weight.oninput = handler;
+    weight.onkeyup = update_timestamp;
     document.addEventListener("keyup", handler);
     element.appendChild(weight)
     element.append(" " + measurement + "   ")
@@ -165,7 +195,7 @@ function calculate_meal() {
     let carbs = parseFloat($("#carbsId").val());
     let protein = parseFloat($("#proteinId").val());
 
-    for(let food of meal) {
+    for (let food of meal) {
         food.update_from_element()
         carbs += food.carbs;
         protein += food.protein;

@@ -64,7 +64,7 @@
     </h3>
     <select id="loadMealId" style="width: fit-content">
     </select>
-    <button type="button" onclick="import_saved_meal()">Load Meal</button>
+    <button id="loadMealButton" type="button" onclick="import_saved_meal()">Load Meal</button>
     <br>
     <br>
     <button type="button" onclick="clear_custom_meals()">Clear All Meals</button>
@@ -98,7 +98,6 @@
         Results
     </h3>
 </div>
-<br>
 (<i id="actualId">0</i>u)
 <i id="infoId"></i>
 <br/>
@@ -108,6 +107,9 @@
 <i id="waitId"></i>
 <br/>
 <br/>
+<b id="timestampId"></b>
+<br>
+<br>
 <canvas id="canvas"></canvas>
 </body>
 
