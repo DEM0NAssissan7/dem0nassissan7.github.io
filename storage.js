@@ -137,6 +137,7 @@ function clear_calibrations() {
 }
 function clear_storage() {
     if(confirm("Are you sure you want to reset?")) {
+        update_storage = () => {}; // Reassign this function so that event listeners can't overwrite the blank data with the current state
         localStorage.clear(); // Entirely wipe localstorage
         location.reload();
     }
