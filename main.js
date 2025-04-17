@@ -88,6 +88,13 @@ function convert24to12(hour24) {
         return { hour: hour24 - 12, period: 'PM' };
     }
 }
+function get_minute_string(minutes) {
+    if(minutes < 10) {
+        return "0" + minutes
+    } else{
+        return minutes
+    }
+}
 function update_timestamp() {
     console.log("Updating timestamp");
     timestamp = new Date();
@@ -95,7 +102,7 @@ function update_timestamp() {
 }
 function update_timestamp_display() {
     twelve = convert24to12(timestamp.getHours());
-    $("#timestampId").html(`Last modified ${twelve.hour}:${timestamp.getMinutes()} ${twelve.period}`);
+    $("#timestampId").html(`Last modified ${twelve.hour}:${get_minute_string(timestamp.getMinutes())} ${twelve.period}`);
 }
 // Create timestamp event listeners
 $("#proteinId").on('keyup', update_timestamp);
