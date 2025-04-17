@@ -67,6 +67,12 @@ function clear_meal() {
     clear_meal_storage();
     location.reload();
 }
+function clear_custom_meals() {
+    confirm("Are you sure you want to delete ALL saved meals?")
+    update_storage = () => {}; // Prevent meals from being pushed back from the event listeners
+    localStorage.setItem("custom_meals", JSON.stringify([]));
+    location.reload();
+}
 
 // Custom Meal Saving
 let saved_meals = [];
