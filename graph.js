@@ -2,7 +2,7 @@ let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext('2d');
 
 const graph_start = -1;
-const graph_end = 8;
+const graph_end = 10;
 const graph_bottom = 60;
 const graph_top = 140;
 
