@@ -50,7 +50,7 @@ function f(t, n_insulin, insulin, carbs, protein) {
 
 const precision = 60;
 const time_frame = 7;
-const insulin_timing_range = [-1, 1];
+const insulin_timing_range = [-2, 2];
 function get_n_insulin(insulin, protein, carbs, current_sugar) {
     // Try n-insulin ranges from -0.6 to 0.8, testing every 2 minute increment
     let time = null;
