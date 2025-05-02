@@ -33,7 +33,7 @@ function f_insulin(t, insulin, n_insulin) {
     return insulin * -profile.e.insulin * Z(t - profile.n.insulin - n_insulin, profile.p.insulin);
 }
 function f_carbs(t, carbs) {
-    return carbs * profile.e.carbs * Z(t - profile.n.carbs, profile.p.carbs);
+    return carbs * profile.e.carbs * G(t - profile.n.carbs, profile.p.carbs);
 }
 function f_protein(t, protein) {
     return protein * profile.e.protein * G(t - profile.n.protein, profile.p.protein);
