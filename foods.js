@@ -7,7 +7,7 @@ add_food("Avacado (by weight)", 8.5, 2);
 add_food("Atlantic Salmon", 0, 20);
 add_food("Bass (bone-in)", 0, 22.6);
 add_food_amount("Beef Bacon -strip-", 0, 3);
-add_food("Babybell Cheese (per piece)", 0, 4);
+add_food_amount("Babybell Cheese (per piece)", 0, 4);
 add_food("Beef (short ribs)", 0, 22);
 add_food("Bell Peppers (green)", 4.6, 0);
 add_food("Cauliflower", 5, 1.9);
