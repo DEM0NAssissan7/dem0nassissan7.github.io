@@ -29,14 +29,13 @@ function Z(t, p) { // Exponential decay
 }
 function P(t, [a, d, b]) {
     if(t <= 0) return 0;
-    if(t >= a + d + b) return 1;
+    if(t >= a + d + b) return 0;
 
     let y = 1 / (0.5 * a + d + 0.5 * b);
 
-    if(t < a) return 0.5 * (y/a) * t * t;
-    if(t < a + d) return y * t - y * a / 2;
-    let _t = t - a - d;
-    if(t < a + d + b) return (y * _t - (0.5 * (y/b) * (_t * _t))) + y * (a + d) - y * a / 2;
+    if(t < a) return y * t/a;
+    if(t < a + d) return y;
+    if(t < a + d + b) return y * (1 - (t - a - d) / b);
 }
 
 
