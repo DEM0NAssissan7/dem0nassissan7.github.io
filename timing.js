@@ -27,6 +27,17 @@ function Z(t, p) { // Exponential decay
     if(t <= 0) return 0;
     return p * Math.exp(-p * t);
 }
+function P(t, [a, d, b]) {
+    if(t <= 0) return 0;
+    if(t >= a + d + b) return 1;
+
+    let y = 1 / (0.5 * a + d + 0.5 * b);
+
+    if(t < a) return 0.5 * (y/a) * t * t;
+    if(t < a + d) return y * t - y * a / 2;
+    let _t = t - a - d;
+    if(t < a + d + b) return (y * _t - (0.5 * (y/b) * (_t * _t))) + y * (a + d) - y * a / 2;
+}
 
 
 function f_insulin(t, insulin, n_insulin) {
@@ -36,7 +47,7 @@ function f_carbs(t, carbs) {
     return carbs * profile.e.carbs * G(t - profile.n.carbs, profile.p.carbs);
 }
 function f_protein(t, protein) {
-    return protein * profile.e.protein * G(t - profile.n.protein, profile.p.protein);
+    return protein * profile.e.protein * P(t - profile.n.protein, [profile.p.protein[0], profile.p.protein[1] * protein, profile.p.protein[2]]);
 }
 
 function f_meal(t, carbs, protein) {

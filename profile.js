@@ -6,7 +6,7 @@ const profile = {
     },
     p: {
         carbs: 1.67, // 0.83 -> 1.21 -> 1.55
-        protein: 4.01, // 1.54 -> 1.97 -> 1.83
+        protein: [3.36, 0.03514, 1.83], // [rise, plateu rate (per gram protein), end]
         insulin: 0.437, // 1.25 -> 1.77
     },
     n: {
